@@ -201,5 +201,51 @@ public List<T> depthFirstTraversal(T startVertex)
     }
 
     return treeEdges;
-}
+    }
+    public List<String> depthFirstTree(T startVertex)
+{
+    List<String> treeEdges = new ArrayList<>();
+    Set<T> visited = new HashSet<>();
+    Stack<T> vertexStack = new Stack<>();
+    Stack<T> parentStack = new Stack<>();
+
+    if (!adjacencyList.containsKey(startVertex))
+    {
+        return treeEdges;
+    }
+
+    vertexStack.push(startVertex);
+    parentStack.push(null);
+
+    while (!vertexStack.isEmpty())
+    {
+        T currentVertex = vertexStack.pop();
+        T parentVertex = parentStack.pop();
+
+        if (!visited.contains(currentVertex))
+        {
+            visited.add(currentVertex);
+
+            if (parentVertex != null)
+            {
+                treeEdges.add(parentVertex + " -> " + currentVertex);
+            }
+
+            List<T> neighbors = adjacencyList.get(currentVertex);
+
+            for (int index = neighbors.size() - 1; index >= 0; index--)
+            {
+                T neighbor = neighbors.get(index);
+
+                if (!visited.contains(neighbor))
+                {
+                    vertexStack.push(neighbor);
+                    parentStack.push(currentVertex);
+                }
+            }
+        }
+    }
+
+    return treeEdges;
+    }
 }

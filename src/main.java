@@ -47,7 +47,7 @@ public class main
         System.out.println("Number of vertices: " + graph.getNumberOfVertices());
         System.out.println("Number of edges: " + graph.getNumberOfEdges());
     }
-
+// Role B: BFS traversal using queue
     public static void bfs(DirectedGraph<String> graph, String start) {
     Set<String> visited = new LinkedHashSet<>();
     Queue<String> queue = new LinkedList<>();

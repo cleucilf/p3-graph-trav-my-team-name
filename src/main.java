@@ -55,7 +55,7 @@ public class main
     visited.add(start);
     queue.add(start);
 
-    System.out.println("BFS Visit Order:");
+    System.out.println("BFS Visit Order (starting at A):");
 
     while (!queue.isEmpty()) {
         String current = queue.remove();

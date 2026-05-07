@@ -82,7 +82,7 @@ public static void bfsTree(DirectedGraph<String> graph, String start) {
     visited.add(start);
     queue.add(start);
 
-    System.out.println("BFS Tree Edges:");
+    System.out.println("BFS Tree Edges (discovery edges):");
 
     while (!queue.isEmpty()) {
         String current = queue.remove();

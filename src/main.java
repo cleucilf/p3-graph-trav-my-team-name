@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
+import java.util.ArrayList;
 
 public class main
 {
@@ -43,11 +45,14 @@ public class main
         bfs(graph, "A");
         bfsTree(graph, "A");
 
+        dfs(graph, "A");
+        dfsTree(graph, "A");
+
         System.out.println();
         System.out.println("Number of vertices: " + graph.getNumberOfVertices());
         System.out.println("Number of edges: " + graph.getNumberOfEdges());
     }
-
+// Role B: BFS traversal using queue
     public static void bfs(DirectedGraph<String> graph, String start) {
     Set<String> visited = new LinkedHashSet<>();
     Queue<String> queue = new LinkedList<>();
@@ -55,7 +60,7 @@ public class main
     visited.add(start);
     queue.add(start);
 
-    System.out.println("BFS Visit Order:");
+    System.out.println("BFS Visit Order (starting at A):");
 
     while (!queue.isEmpty()) {
         String current = queue.remove();
@@ -82,7 +87,7 @@ public static void bfsTree(DirectedGraph<String> graph, String start) {
     visited.add(start);
     queue.add(start);
 
-    System.out.println("BFS Tree Edges:");
+    System.out.println("BFS Tree Edges (discovery edges):");
 
     while (!queue.isEmpty()) {
         String current = queue.remove();
@@ -96,6 +101,69 @@ public static void bfsTree(DirectedGraph<String> graph, String start) {
                 queue.add(neighbor);
 
                 System.out.println("(" + current + ", " + neighbor + ")");
+            }
+        }
+    }
+}
+public static void dfs(DirectedGraph<String> graph, String start) {
+    Set<String> visited = new LinkedHashSet<>();
+    Stack<String> stack = new Stack<>();
+
+    stack.push(start);
+
+    System.out.println();
+    System.out.println("DFS Visit Order (Role C):");
+
+    while (!stack.isEmpty()) {
+        String current = stack.pop();
+
+        if (!visited.contains(current)) {
+            visited.add(current);
+            System.out.print(current + " ");
+
+            List<String> neighbors = graph.getNeighbors(current);
+            Collections.sort(neighbors, Collections.reverseOrder());
+
+            for (String neighbor : neighbors) {
+                if (!visited.contains(neighbor)) {
+                    stack.push(neighbor);
+                }
+            }
+        }
+    }
+
+    System.out.println();
+}
+
+public static void dfsTree(DirectedGraph<String> graph, String start) {
+    Set<String> visited = new LinkedHashSet<>();
+    Stack<String> vertexStack = new Stack<>();
+    Stack<String> parentStack = new Stack<>();
+
+    vertexStack.push(start);
+    parentStack.push(null);
+
+    System.out.println("DFS Tree Edges (Role C):");
+
+    while (!vertexStack.isEmpty()) {
+        String current = vertexStack.pop();
+        String parent = parentStack.pop();
+
+        if (!visited.contains(current)) {
+            visited.add(current);
+
+            if (parent != null) {
+                System.out.println("(" + parent + ", " + current + ")");
+            }
+
+            List<String> neighbors = graph.getNeighbors(current);
+            Collections.sort(neighbors, Collections.reverseOrder());
+
+            for (String neighbor : neighbors) {
+                if (!visited.contains(neighbor)) {
+                    vertexStack.push(neighbor);
+                    parentStack.push(current);
+                }
             }
         }
     }

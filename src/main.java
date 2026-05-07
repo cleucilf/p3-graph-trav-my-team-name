@@ -44,5 +44,8 @@ public class main
         System.out.println();
         System.out.println("DFS starting at A:");
         System.out.println(graph.depthFirstTraversal("A"));
+        System.out.println();
+        System.out.println("BFS tree starting at A:");
+        System.out.println(graph.breadthFirstTree("A"));
     }
 }

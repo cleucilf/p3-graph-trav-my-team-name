@@ -171,4 +171,35 @@ public List<T> depthFirstTraversal(T startVertex)
 
         return traversalOrder;
     }
+    public List<String> breadthFirstTree(T startVertex)
+{
+    List<String> treeEdges = new ArrayList<>();
+    Set<T> visited = new HashSet<>();
+    Queue<T> queue = new LinkedList<>();
+
+    if (!adjacencyList.containsKey(startVertex))
+    {
+        return treeEdges;
+    }
+
+    visited.add(startVertex);
+    queue.add(startVertex);
+
+    while (!queue.isEmpty())
+    {
+        T currentVertex = queue.remove();
+
+        for (T neighbor : adjacencyList.get(currentVertex))
+        {
+            if (!visited.contains(neighbor))
+            {
+                visited.add(neighbor);
+                queue.add(neighbor);
+                treeEdges.add(currentVertex + " -> " + neighbor);
+            }
+        }
+    }
+
+    return treeEdges;
+}
 }

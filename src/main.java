@@ -1,3 +1,10 @@
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Set;
+
 public class main
 {
     public static void main(String[] args)
@@ -33,23 +40,64 @@ public class main
         System.out.println("Directed Graph:");
         graph.displayGraph();
 
+        bfs(graph, "A");
+        bfsTree(graph, "A");
+
         System.out.println();
         System.out.println("Number of vertices: " + graph.getNumberOfVertices());
         System.out.println("Number of edges: " + graph.getNumberOfEdges());
-
-        System.out.println();
-        System.out.println("BFS starting at A:");
-        System.out.println(graph.breadthFirstTraversal("A"));
-
-        System.out.println();
-        System.out.println("DFS starting at A:");
-        System.out.println(graph.depthFirstTraversal("A"));
-        System.out.println();
-        System.out.println("BFS tree starting at A:");
-        System.out.println(graph.breadthFirstTree("A"));
-
-        System.out.println();
-        System.out.println("DFS tree starting at A:");
-        System.out.println(graph.depthFirstTree("A"));
     }
+
+    public static void bfs(DirectedGraph<String> graph, String start) {
+    Set<String> visited = new LinkedHashSet<>();
+    Queue<String> queue = new LinkedList<>();
+
+    visited.add(start);
+    queue.add(start);
+
+    System.out.println("BFS Visit Order:");
+
+    while (!queue.isEmpty()) {
+        String current = queue.remove();
+        System.out.print(current + " ");
+
+        List<String> neighbors = graph.getNeighbors(current);
+        Collections.sort(neighbors);
+
+        for (String neighbor : neighbors) {
+            if (!visited.contains(neighbor)) {
+                visited.add(neighbor);
+                queue.add(neighbor);
+            }
+        }
+    }
+
+    System.out.println();
+}
+
+public static void bfsTree(DirectedGraph<String> graph, String start) {
+    Set<String> visited = new LinkedHashSet<>();
+    Queue<String> queue = new LinkedList<>();
+
+    visited.add(start);
+    queue.add(start);
+
+    System.out.println("BFS Tree Edges:");
+
+    while (!queue.isEmpty()) {
+        String current = queue.remove();
+
+        List<String> neighbors = graph.getNeighbors(current);
+        Collections.sort(neighbors);
+
+        for (String neighbor : neighbors) {
+            if (!visited.contains(neighbor)) {
+                visited.add(neighbor);
+                queue.add(neighbor);
+
+                System.out.println("(" + current + ", " + neighbor + ")");
+            }
+        }
+    }
+}
 }

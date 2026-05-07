@@ -1,7 +1,12 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
+import java.util.Stack;
 
 public class DirectedGraph<T> implements BasicGraphInterface<T>
 {
@@ -96,5 +101,74 @@ public class DirectedGraph<T> implements BasicGraphInterface<T>
         {
             System.out.println(vertex + " -> " + adjacencyList.get(vertex));
         }
+    }
+    public List<T> breadthFirstTraversal(T startVertex)
+{
+    List<T> traversalOrder = new ArrayList<>();
+    Set<T> visited = new HashSet<>();
+    Queue<T> queue = new LinkedList<>();
+
+    if (!adjacencyList.containsKey(startVertex))
+    {
+        return traversalOrder;
+    }
+
+    visited.add(startVertex);
+    queue.add(startVertex);
+
+    while (!queue.isEmpty())
+    {
+        T currentVertex = queue.remove();
+        traversalOrder.add(currentVertex);
+
+        for (T neighbor : adjacencyList.get(currentVertex))
+        {
+            if (!visited.contains(neighbor))
+            {
+                visited.add(neighbor);
+                queue.add(neighbor);
+            }
+        }
+    }
+
+    return traversalOrder;
+}
+public List<T> depthFirstTraversal(T startVertex)
+{
+    List<T> traversalOrder = new ArrayList<>();
+    Set<T> visited = new HashSet<>();
+    Stack<T> stack = new Stack<>();
+
+    if (!adjacencyList.containsKey(startVertex))
+    {
+        return traversalOrder;
+    }
+
+    stack.push(startVertex);
+
+    while (!stack.isEmpty())
+    {
+        T currentVertex = stack.pop();
+
+        if (!visited.contains(currentVertex))
+        {
+            visited.add(currentVertex);
+            traversalOrder.add(currentVertex);
+
+            List<T> neighbors = adjacencyList.get(currentVertex);
+
+            for (int index = neighbors.size() - 1; index >= 0; index--)
+            {
+                T neighbor = neighbors.get(index);
+
+                if (!visited.contains(neighbor))
+                {
+                    stack.push(neighbor);
+                }
+            }
+        }
+    }
+
+        return traversalOrder;
     }
 }

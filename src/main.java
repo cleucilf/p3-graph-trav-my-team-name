@@ -36,5 +36,13 @@ public class main
         System.out.println();
         System.out.println("Number of vertices: " + graph.getNumberOfVertices());
         System.out.println("Number of edges: " + graph.getNumberOfEdges());
+
+        System.out.println();
+        System.out.println("BFS starting at A:");
+        System.out.println(graph.breadthFirstTraversal("A"));
+
+        System.out.println();
+        System.out.println("DFS starting at A:");
+        System.out.println(graph.depthFirstTraversal("A"));
     }
 }

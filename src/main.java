@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
-import java.util.ArrayList;
 
 public class main
 {
@@ -39,8 +38,34 @@ public class main
         graph.addEdge("C", "B");
         graph.addEdge("I", "F");
 
+        AdjacencyMatrixGraph matrixGraph = new AdjacencyMatrixGraph();
+
+        String[] vertices = {"A", "B", "C", "D", "E", "F", "G", "H", "I"};
+
+        for (String vertex : vertices) {
+            matrixGraph.addVertex(vertex);
+        }
+
+        matrixGraph.addEdge("A", "B");
+        matrixGraph.addEdge("A", "D");
+        matrixGraph.addEdge("A", "E");
+        matrixGraph.addEdge("B", "E");
+        matrixGraph.addEdge("D", "G");
+        matrixGraph.addEdge("E", "F");
+        matrixGraph.addEdge("E", "H");
+        matrixGraph.addEdge("G", "H");
+        matrixGraph.addEdge("F", "C");
+        matrixGraph.addEdge("F", "H");
+        matrixGraph.addEdge("H", "I");
+        matrixGraph.addEdge("C", "B");
+        matrixGraph.addEdge("I", "F");
+
         System.out.println("Directed Graph:");
         graph.displayGraph();
+
+        System.out.println();
+        System.out.println("Adjacency Matrix:");
+        matrixGraph.displayMatrix();
 
         bfs(graph, "A");
         bfsTree(graph, "A");
